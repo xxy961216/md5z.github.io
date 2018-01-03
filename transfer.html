@@ -48,36 +48,7 @@
 
 <p>下面给出一个简单的中转注入脚本例子</p>
 
-<blockquote><p>&lt;?php</p>
-
-<p>set_time_limit(0);//初始化时间</p>
-
-<p>$Host = ""; //设置URL</p>
-
-<p>$Useragent=" ";//设置UA</p>
-
-<p>$id = $_GET["id"];</p>
-
-<p>$payload = curl_init();//初始化</p>
-
-<p>curl_setopt($payload,CURLOPT_URL,$Host); //在请求中设置URL</p>
-
-<p>curl_setopt($payload,CURLOPT_RETURNTRANSFER,1);//设置数据自动回显</p>
-
-<p>curl_setopt($payload,CURLOPT_GET, 1);//设置请求类型get</p>
-
-<p>curl_setopt($payload,CURLOPT_GETFIELDS, $id);//设置请求参数id</p>
-
-<p>curl_setopt($payload,CURLOPT_TIMEOUT, 10); //设置超时限制</p>
-
-<p>curl_setopt($payload,CURLOPT_USERAGENT, $Useragent); //在请求中设置UA</p>
-
-<p>$return = curl_exec($payload);//发起请求并获取返回信息</p>
-
-<p>echo $return;//打印返回信息</p>
-
-<p>?&gt;
-</p></blockquote>
+<blockquote><p>&lt;?php</p><p>set_time_limit(0);//初始化时间</p><p>$Host = ""; //设置URL</p><p>$Useragent=" ";//设置UA</p><p>$id = $_GET["id"];</p><p>$payload = curl_init();//初始化</p><p>curl_setopt($payload,CURLOPT_URL,$Host); //在请求中设置URL</p><p>curl_setopt($payload,CURLOPT_RETURNTRANSFER,1);//设置数据自动回显</p><p>curl_setopt($payload,CURLOPT_GET, 1);//设置请求类型get</p><p>curl_setopt($payload,CURLOPT_GETFIELDS, $id);//设置请求参数id</p><p>curl_setopt($payload,CURLOPT_TIMEOUT, 10); //设置超时限制</p><p>curl_setopt($payload,CURLOPT_USERAGENT, $Useragent); //在请求中设置UA</p><p>$return = curl_exec($payload);//发起请求并获取返回信息</p><p>echo $return;//打印返回信息</p><p>?&gt;</p></blockquote>
 
 <h3>实例 2</h3>
 
