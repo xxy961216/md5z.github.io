@@ -48,21 +48,35 @@
 
 <p>下面给出一个简单的中转注入脚本例子</p>
 
-<p><code>&lt;?php
-set<em>time</em>limit(0);//初始化时间
-$Host = &quot;&quot;; //设置URL
-$Useragent=&quot; &quot;;//设置UA
-$id = $<em>GET[&quot;id&quot;];
-$payload = curl</em>init();//初始化
-curl<em>setopt($payload,CURLOPT</em>URL,$Host); //在请求中设置URL
-curl<em>setopt($payload,CURLOPT</em>RETURNTRANSFER,1);//设置数据自动回显
-curl<em>setopt($payload,CURLOPT</em>GET, 1);//设置请求类型get
-curl<em>setopt($payload,CURLOPT</em>GETFIELDS, $id);//设置请求参数id
-curl<em>setopt($payload,CURLOPT</em>TIMEOUT, 10); //设置超时限制
-curl<em>setopt($payload,CURLOPT</em>USERAGENT, $Useragent); //在请求中设置UA
+<p><code><?php
+
+set_time_limit(0);//初始化时间
+
+$Host = ""; //设置URL
+
+$Useragent=" ";//设置UA
+
+$id = $_GET["id"];
+
+$payload = curl_init();//初始化
+
+curl_setopt($payload,CURLOPT_URL,$Host); //在请求中设置URL
+
+curl_setopt($payload,CURLOPT_RETURNTRANSFER,1);//设置数据自动回显
+
+curl_setopt($payload,CURLOPT_GET, 1);//设置请求类型get
+
+curl_setopt($payload,CURLOPT_GETFIELDS, $id);//设置请求参数id
+
+curl_setopt($payload,CURLOPT_TIMEOUT, 10); //设置超时限制
+
+curl_setopt($payload,CURLOPT_USERAGENT, $Useragent); //在请求中设置UA
+
 $return = curl_exec($payload);//发起请求并获取返回信息
+
 echo $return;//打印返回信息
- ?&lt;
+
+?>
 </code></p>
 
 <h3>实例 2</h3>
