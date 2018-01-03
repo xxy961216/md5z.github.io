@@ -1,1 +1,88 @@
 
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Alt-G's blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Alt-G的博客</h1>
+      <h2 class="project-tagline">by md5z</h2>
+    </section>
+    <section class="main-content">
+<h3>
+  <a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Transfer</h3>
+<p>
+  <h1>关于中转脚本</h1>
+
+<p>一直想写一篇关于攻击中使用中转的例子。</p>
+
+<p>最早听到中转注入，中转绕过这些词的时候只是感觉很强，凡事还是要自己去做才知道到底是怎么回事。</p>
+
+<h2>中转需求</h2>
+
+<p>首先，我们需要明白，为何会需要中转。</p>
+
+<p>这个其实有一个很直观的例子，就是代理服务器。用VPS翻墙，这是很多人都喜欢干的事，同样的，这是属于中转的好处。这也是最容易完成的一种“中转绕过”。</p>
+
+<h2>中转使用</h2>
+
+<p>而在比赛和实战中，sqlmap这位经常被做成表情包的同志，其实并没有大家想的那么不堪。
+很多时候，我们都是一看到#Parameter seemed not injectable，立马把sqlmap关掉开启手注加python模式。</p>
+
+<p>Sqlmap中有很多功能性的绕过脚本可以选择，而且有的时候并不是sqlmap没有找到注入点，而是它“不能把页面的回显理解为注入条件”，毕竟sqlmap只是一个python注入框架，想让他自带AI暂时还是不可能的。</p>
+
+<p>而中转注入脚本要做的事，就是把sqlmap注入得到的回显单独拿出来，并写入事先准备好的php中作为判断依据，再根据你自定义的规则对其进行判断。</p>
+
+<h3>实例 1</h3>
+
+<p>下面给出Sqlmap中用于回显判断的命令：</p>
+
+<blockquote><p>--string 作为True的判断字符</p><p>--not-string 作为False的判断字符</p><p>--regexp 使用特定正则表达式作为判断条件</p><p>--code 根据HTTP状态来判断</p><p>--text-only 比较网站响应文本进行判断</p><p>--title 比较网站响应Title进行判断</p></blockquote>
+
+<p>下面给出一个简单的中转注入脚本例子</p>
+
+<p><code>&lt;?php
+set<em>time</em>limit(0);//初始化时间
+$Host = &quot;&quot;; //设置URL
+$Useragent=&quot; &quot;;//设置UA
+$id = $<em>GET[&quot;id&quot;];
+$payload = curl</em>init();//初始化
+curl<em>setopt($payload,CURLOPT</em>URL,$Host); //在请求中设置URL
+curl<em>setopt($payload,CURLOPT</em>RETURNTRANSFER,1);//设置数据自动回显
+curl<em>setopt($payload,CURLOPT</em>GET, 1);//设置请求类型get
+curl<em>setopt($payload,CURLOPT</em>GETFIELDS, $id);//设置请求参数id
+curl<em>setopt($payload,CURLOPT</em>TIMEOUT, 10); //设置超时限制
+curl<em>setopt($payload,CURLOPT</em>USERAGENT, $Useragent); //在请求中设置UA
+$return = curl_exec($payload);//发起请求并获取返回信息
+echo $return;//打印返回信息
+ ?&lt;
+</code></p>
+
+<h3>实例 2</h3>
+
+<p>另外，经常被提到的神器菜刀，也是我们需要对其进行中转才能容易利用的工具之一。</p>
+
+<p>因为许多网络应用防护软件检测菜刀就是依靠几个关键特征。</p>
+
+<p>包括请求头，发送的数据包中出现了“base64<em>decode($</em>POST[])”,“eval%01”的字样等等。</p>
+
+<p>而使用本地的中转脚本进行菜刀连接之后，一是我们可以对菜刀中的特征字进行任意修改和伪造，二是发起的请求不再具有菜刀的特征，变成了我们“安全无害”的本地php文件的特征，所以基于某些简单特征对于菜刀的拦截就会因此失效了。</p>
+
+
+      <footer class="site-footer">
+
+        <span class="site-footer-credits">一个只会菜搭，经常尬写，急需多学习的萌新</a></span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
