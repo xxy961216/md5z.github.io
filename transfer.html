@@ -42,11 +42,14 @@
 
 <h3>实例 1</h3>
 
-<p>下面给出Sqlmap中用于回显判断的命令：</p>
+<p>Sqlmap中用于回显判断的命令：</p>
+      
 
 <blockquote><p>--string 作为True的判断字符</p><p>--not-string 作为False的判断字符</p><p>--regexp 使用特定正则表达式作为判断条件</p><p>--code 根据HTTP状态来判断</p><p>--text-only 比较网站响应文本进行判断</p><p>--title 比较网站响应Title进行判断</p></blockquote>
 
+      
 <p>下面给出一个简单的中转注入脚本例子</p>
+      
 
 <blockquote><p>&lt;?php</p><p>set_time_limit(0);//初始化时间</p><p>$Host = ""; //设置URL</p><p>$Useragent=" ";//设置UA</p><p>$id = $_GET["id"];</p><p>$payload = curl_init();//初始化</p><p>curl_setopt($payload,CURLOPT_URL,$Host); //在请求中设置URL</p><p>curl_setopt($payload,CURLOPT_RETURNTRANSFER,1);//设置数据自动回显</p><p>curl_setopt($payload,CURLOPT_GET, 1);//设置请求类型get</p><p>curl_setopt($payload,CURLOPT_GETFIELDS, $id);//设置请求参数id</p><p>curl_setopt($payload,CURLOPT_TIMEOUT, 10); //设置超时限制</p><p>curl_setopt($payload,CURLOPT_USERAGENT, $Useragent); //在请求中设置UA</p><p>$return = curl_exec($payload);//发起请求并获取返回信息</p><p>echo $return;//打印返回信息</p><p>?&gt;</p></blockquote>
 
